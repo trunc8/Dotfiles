@@ -1,0 +1,35 @@
+
+# Software
+alias studio="source /home/trunc8/villa/Workspace/android-studio/bin/studio.sh"
+alias matlab='~/villa/Workspace/MATLAB/R2020a/matlab'
+
+# Convenience command
+alias show_storage='du -h --max-depth=1 | sort -h'
+alias help_no_sound='pulseaudio -k && sudo alsa force-reload'
+alias help_internet_down='systemctl restart network-manager.service'
+
+alias apt='sudo apt'
+alias build='cd build; cmake ../; make; cd ..'
+alias fd='fdfind'
+alias ez='vim ~/.zshrc'
+alias sz='source ~/.zshrc'
+alias trash='gio trash'
+alias u2='sudo apt update && sudo apt upgrade'
+
+
+# Virtual Environment
+alias juplab='cd ~/villa/Basement/Playground/Jupyter_Directory && source jupyter_env/bin/activate && jupyter-lab'
+alias jup_env='source ~/villa/Basement/Playground/Jupyter_Directory/jupyter_env/bin/activate' 
+
+# FASD
+alias v='f -e vim' # quick opening files with vim
+alias st='f -e subl' # quick opening files with sublime text
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+# Extract plugin
+alias x='extract'
+
+# dotfiles
+# Source: https://news.ycombinator.com/item?id=11071754
+# Explained: https://www.ackama.com/blog/posts/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained
+alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
