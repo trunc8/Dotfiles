@@ -19,7 +19,8 @@ alias u2='sudo apt update && sudo apt upgrade'
 
 # Virtual Environment
 alias juplab='cd ~/villa/Basement/Playground/Jupyter_Directory && source jupyter_env/bin/activate && jupyter-lab'
-alias jup_env='source ~/villa/Basement/Playground/Jupyter_Directory/jupyter_env/bin/activate' 
+alias jup_env='source ~/villa/Basement/Playground/Jupyter_Directory/jupyter_env/bin/activate'
+alias cv_env='source ~/villa/Studyroom/cs764-assignments/01/venv/bin/activate'
 
 # FASD
 alias v='f -e vim' # quick opening files with vim
