@@ -141,8 +141,8 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
-# Key mapping
-xmodmap /home/trunc8/villa/Basement/.key_mapping
+# Key mapping (Update: done differently now in i3 config file)
+# xmodmap /home/trunc8/villa/Basement/.key_mapping
 
 # ROS related
 # source /opt/ros/melodic/setup.zsh
