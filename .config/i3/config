@@ -257,31 +257,26 @@ assign [class="Nvidia-settings"] $ws11
 
 # CONVENIENCE KEY-BINDINGS
 
-# Sreen brightness controls
+## Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-# Touchpad controls
+## Touchpad controls
 bindsym XF86TouchpadToggle exec ~/.config/i3/scripts/toggletouchpad.sh # toggle touchpad
 
-# Media player controls
+## Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+## Print screen shortcuts
 bindsym Print exec gnome-screenshot
+bindsym Shift+Print exec gnome-screenshot -a
+bindsym Ctrl+Shift+Print exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
 
-# bindsym --release Print exec gnome-screenshot
-
-# bindsym --release Mod1+Sys_Req exec gnome-screenshot -w
-
-# bindsym --release Ctrl+Shift+Print exec gnome-screenshot -a
-
-## start rofi (a program launcher)
+## Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
-
-
 
 
 # STARTUP
