@@ -187,3 +187,18 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 # Probably less (the pager tool) upgraded. LESS="-R" doesn't cut it anymore
 # https://superuser.com/a/1514628
 export LESS='--mouse --wheel-lines=3'
+
+# ssh-agent doesn't work in i3
+# https://yashagarwal.in/posts/2017/12/setting-up-ssh-agent-in-i3/#:~:text=In%20this%20post%2C%20I%20will,process%20of%20creating%20the%20keys.
+if [ -f ~/.ssh/agent.env ] ; then
+    . ~/.ssh/agent.env > /dev/null
+    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+        echo "Stale agent file found. Spawning a new agent. "
+        eval `ssh-agent | tee ~/.ssh/agent.env`
+        ssh-add
+    fi
+else
+    echo "Starting ssh-agent"
+    eval `ssh-agent | tee ~/.ssh/agent.env`
+    ssh-add
+fi
