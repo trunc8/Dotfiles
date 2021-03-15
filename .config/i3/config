@@ -273,6 +273,7 @@ bindsym XF86AudioPrev exec playerctl previous
 ## Print screen shortcuts
 bindsym Print exec gnome-screenshot
 bindsym Shift+Print exec gnome-screenshot -a
+# (Hack below: https://askubuntu.com/a/1212806)
 bindsym Ctrl+Shift+Print exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
 
 ## Start rofi (a program launcher)
@@ -281,7 +282,8 @@ bindsym $mod+d exec rofi -show run
 
 # STARTUP
 exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/persistence.jpg
-exec nvidia-settings
+# exec nvidia-settings
+exec redshift
 exec alacritty
 exec google-chrome
 exec subl
@@ -295,4 +297,6 @@ exec --no-startup-id compton
 # Keys
 exec_always xmodmap -e "clear lock" #disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
-exec_always xmodmap -e "keycode 200 = Super_L" # Screen record button as Super key
+exec_always xmodmap -e "remove mod1 = Alt_R"
+exec_always xmodmap -e "keycode 108 = Super_L"
+# exec_always xmodmap -e "keycode 200 = Super_L" # Screen record button as Super key
