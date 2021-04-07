@@ -150,6 +150,11 @@ fi
 # export TURTLEBOT3_MODEL=waffle
 # source /home/trunc8/catkin_ws/devel/setup.zsh
 # source /home/trunc8/catkin_ws/devel_cb/setup.zsh
+source /opt/ros/foxy/setup.zsh
+source /usr/share/colcon_cd/function/colcon_cd.sh
+source ~/colcon_ws/install/setup.zsh
+source /usr/share/gazebo-11/setup.sh
+#export _colcon_cd_root=~/ros2_install
 
 # Swiss army knife; opens nearly everything
 op() {
@@ -169,13 +174,16 @@ op() {
 # export GAZEBO_PLUGIN_PATH=${GAZEBO_PLUGIN_PATH}:${GAZEBOSIM_PATH}/Velodyne_LiDAR/Velodyne_Plugin/build:${GAZEBOSIM_PATH}/Gazebo_Plugin_Tutorial/build:${GAZEBOSIM_PATH}/Sensor_Tutorial/build:
 # export LD_LIBRARY_PATH=/usr/local/lib:/home/trunc8/villa/Basement/Playground/f1tenth/lpopt_install/ThirdParty-HSL/coinhsl/lib:$LD_LIBRARY_PATH
 # export WEBOTS_HOME=/usr/local/webots
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/colcon_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models
+export TURTLEBOT3_MODEL=waffle_pi
 
 eval "$(fasd --init auto)"
+eval $(thefuck --alias)
 
 # Vim extension to the shell
 set -o vi
 
-# Must appear after the vim row in zshrc for fzf keybindings to work
+# **Must appear after the vim** row in zshrc for fzf keybindings to work
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # source /home/trunc8/.config/broot/launcher/bash/br
@@ -184,11 +192,11 @@ set -o vi
 export GOPATH=$HOME/villa/Workspace/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-# Probably less (the pager tool) upgraded. LESS="-R" doesn't cut it anymore
+# Probably "less" (the pager tool) has upgraded. LESS="-R" doesn't cut it anymore
 # https://superuser.com/a/1514628
 export LESS='--mouse --wheel-lines=3'
 
-# ssh-agent doesn't work in i3
+# In order to not input password everytime for ssh git repos
 # https://yashagarwal.in/posts/2017/12/setting-up-ssh-agent-in-i3/#:~:text=In%20this%20post%2C%20I%20will,process%20of%20creating%20the%20keys.
 if [ -f ~/.ssh/agent.env ] ; then
     . ~/.ssh/agent.env > /dev/null

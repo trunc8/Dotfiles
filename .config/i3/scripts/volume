@@ -17,10 +17,25 @@ open(my $fh, '-|', 'pactl list sinks');
 $/="\n\n";
 
 ## Go through the pactl output
+
 while (<$fh>) {
     ## If this is the sink we are interested in
     if (/#$sink/) {
+        # trunc8's modifications --------
+        ## Extract mute status of this sink
+        /Mute: (.*)/;
+        my $mute_status=$1;
+        # print "$mute_status\n";
+        if ($mute_status eq "yes") {
+            print " ";
+        }
+        else {
+            print " ";
+        }
+        # -------
+
         ## Extract the current colume of this sink
+
         /Volume:.*?(\d+)%/;
         my $volume=$1;
         ## If the script has been run with a second argument,

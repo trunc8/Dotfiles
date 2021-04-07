@@ -1,0 +1,13 @@
+#!/bin/bash
+
+time=$(date '+<big>%H:%M:%S</big>')
+# date '+<big>%H</big>:%M<small>:%S</small>'
+# 
+# echo "   $time                                                                 "
+echo "$time";
+# echo
+# echo \#005FD7;  # Soft blue
+# echo \#00FF00;  # Bright green
+# echo \#00aff2; # Cyan
+# echo \#ffffa0;
+exit 0;
