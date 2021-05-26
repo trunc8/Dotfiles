@@ -69,8 +69,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    docker
-    docker-compose
+    # docker
+    # docker-compose
     extract # Alias 'x'
     git
     tmux # Shortcuts ts and ta
@@ -150,10 +150,12 @@ fi
 # export TURTLEBOT3_MODEL=waffle
 # source /home/trunc8/catkin_ws/devel/setup.zsh
 # source /home/trunc8/catkin_ws/devel_cb/setup.zsh
-source /opt/ros/foxy/setup.zsh
-source /usr/share/colcon_cd/function/colcon_cd.sh
-source ~/colcon_ws/install/setup.zsh
-source /usr/share/gazebo-11/setup.sh
+
+# source /opt/ros/foxy/setup.zsh
+# source /usr/share/colcon_cd/function/colcon_cd.sh
+# source ~/colcon_ws/install/setup.zsh
+# source /usr/share/gazebo-11/setup.sh
+
 #export _colcon_cd_root=~/ros2_install
 
 # Swiss army knife; opens nearly everything
@@ -166,6 +168,13 @@ op() {
     do
       xdg-open "$file" > /dev/null 2>&1
     done
+  fi
+}
+
+con() {
+  if [[ "$3" != "" ]];
+  then
+    convert -resize "$1"% "$2" "$3"
   fi
 }
 
@@ -210,3 +219,26 @@ else
     eval `ssh-agent | tee ~/.ssh/agent.env`
     ssh-add
 fi
+
+
+# Installing Gurobi
+export GUROBI_HOME="/home/trunc8/villa/Basement/mespp-proj/gurobi911/linux64"
+export PATH="${PATH}:${GUROBI_HOME}/bin"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+export GRB_LICENSE_FILE="${HOME}/gurobi.lic"
+
+# Temporary: Getting milp_mespp to work
+MESPP_PATH="/home/trunc8/villa/Basement/mespp-proj:/home/trunc8/villa/Basement/mespp-proj/milp_mespp"
+export PYTHONPATH="${PYTHONPATH}:${MESPP_PATH}"
+
+# For gupload(https://github.com/labbots/google-drive-upload)
+PATH="/home/trunc8/.google-drive-upload/bin:${PATH}"
+
+# To get nvcc executable from cuda's bin directory
+PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/targets/x86_64-linux/lib"
+
+
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"

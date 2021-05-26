@@ -80,7 +80,7 @@ if ($player_arg eq '' or $player_arg =~ /cmus$/) {
 my $title = qx(playerctl $player_arg metadata title);
 exit(0) if $?;
 
-my $desired_length = 15;
+my $desired_length = 18;
 chomp($title);
 if (length($title) > $desired_length) {    
     printf "%s%s", substr("$title", 0, $desired_length-3), "...";

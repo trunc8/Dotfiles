@@ -17,7 +17,8 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:System San Francisco Display 9
+# font pango:System San Francisco Display 9
+font pango:System San Francisco Display, FontAwesome 9
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -242,12 +243,15 @@ bar {
 # DEFAULT WORKSPACES
 assign [class="Gazeb"] $ws1
 assign [class="gazebo"] $ws1
+# assign [class="IsaacSimProject"] $ws1
 assign [class="Google-chrome"] $ws2
 assign [class="Sublime_text"] $ws3
 for_window [class="MATLAB R2020a - academic use"] move to workspace $ws5
 assign [class="Evince"] $ws8
+assign [class="polar-bookshelf"] $ws8
 assign [class="Microsoft Teams - Preview"] $ws9
 assign [class="Slack"] $ws9
+assign [class="discord"] $ws9
 assign [class="Rhythmbox"] $ws10
 for_window [class="Spotify"] move to workspace $ws10
 # for_window [class="Spotify"] move to workspace $ws10, workspace --no-auto-back-and-forth $ws10
@@ -261,6 +265,9 @@ for_window [class="Image_raw"] floating enable
 for_window [class="Image_raw"] resize set 640 480
 
 for_window [class="kmag"] floating enable
+for_window [class="matplotlib"] floating enable
+
+for_window [class="IsaacSimProject"] floating disable
 
 # CONVENIENCE KEY-BINDINGS
 
@@ -291,12 +298,12 @@ bindsym $mod+d exec rofi -show run
 
 
 # STARTUP
-exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/4chan_wallpaper.jpg
-# exec nvidia-settings
+exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/matrix_wallpaper.jpg
 exec redshift
 exec alacritty
 exec google-chrome
 exec subl
+exec discord
 # exec spotify
 exec xset mouse 15 0 # accel_multiplier threshold
 
