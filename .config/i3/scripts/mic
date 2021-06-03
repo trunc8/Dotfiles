@@ -24,47 +24,47 @@ esac
 
 # Determine mic's state
 #amixer contents | grep -q "values=off" && [[ $? -eq 0 ]] && state="off";  # If you use AlaMixer
-# pactl list sources | grep -q "Mute: yes" && [[ $? -eq 0 ]] && state="off";  # If you rather go with PulseAudio
+pactl list sources | grep -q "Mute: yes" && [[ $? -eq 0 ]] && state="off";  # If you rather go with PulseAudio
 
-
-# # Toggle mic's state
-# case $state in
-#     off)
-#     # echo "  " " muted ";
-#     echo "  "
-#     echo
-#     echo \#005FD7;  # Soft blue
-#     #echo \#00FF00;  # Bright green
-#     exit 0;
-#     ;;
-#     *)
-#     # echo "     " " OPEN   ";
-#     echo "      ";
-#     exit 33;
-#     ;;
-# esac
-
-# exit 0;
-
-
-# trunc8: "Hacky fix", I have two lines of output on grep "Mute: yes" for some reason :/
-
-pactl list sources | grep -q "Mute: no" && [[ $? -eq 0 ]] && state="on";
 
 # Toggle mic's state
 case $state in
-    on)
-    echo "  ";
-    exit 0;
-    # exit 33; to show urgent status permanently
-    ;;
-    *)
+    off)
+    # echo "  " " muted ";
     echo "  "
     echo
     echo \#005FD7;  # Soft blue
-    # echo \#00FF00;  # Bright green
+    #echo \#00FF00;  # Bright green
     exit 0;
+    ;;
+    *)
+    # echo "     " " OPEN   ";
+    echo "  ";
+    # exit 33;
     ;;
 esac
 
 exit 0;
+
+
+# # trunc8: "Hacky fix", I have two lines of output on grep "Mute: yes" for some reason :/
+
+# pactl list sources | grep -q "Mute: no" && [[ $? -eq 0 ]] && state="on";
+
+# # Toggle mic's state
+# case $state in
+#     on)
+#     echo "  ";
+#     exit 0;
+#     # exit 33; to show urgent status permanently
+#     ;;
+#     *)
+#     echo "  "
+#     echo
+#     echo \#005FD7;  # Soft blue
+#     # echo \#00FF00;  # Bright green
+#     exit 0;
+#     ;;
+# esac
+
+# exit 0;

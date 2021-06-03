@@ -69,8 +69,8 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    # docker
-    # docker-compose
+    docker
+    docker-compose
     extract # Alias 'x'
     git
     tmux # Shortcuts ts and ta
@@ -172,7 +172,14 @@ op() {
 }
 
 con() {
-  if [[ "$3" != "" ]];
+  if [[ "$2" == "" ]];
+  then
+    # Make a copy of a.png as a@2x.png
+    cp "$1" $(echo "$1" | sed -E 's/\.([a-z]+)$/@2x\.\1/')
+    # Rewrite a.png with its halved image
+    convert -resize 50% "$1" "$1"
+    # End up with a.png and a@2x.png making semantic sense
+  elif [[ "$3" != "" ]];
   then
     convert -resize "$1"% "$2" "$3"
   fi

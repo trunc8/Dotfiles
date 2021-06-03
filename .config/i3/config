@@ -304,6 +304,7 @@ exec alacritty
 exec google-chrome
 exec subl
 exec discord
+exec slack
 # exec spotify
 exec xset mouse 15 0 # accel_multiplier threshold
 
