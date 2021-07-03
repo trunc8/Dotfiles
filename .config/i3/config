@@ -288,17 +288,24 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 ## Print screen shortcuts
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
-# (Hack below: https://askubuntu.com/a/1212806)
-bindsym Ctrl+Shift+Print exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
+# bindsym Print exec gnome-screenshot
+# bindsym Shift+Print exec gnome-screenshot -a
+# # (Hack below: https://askubuntu.com/a/1212806)
+# bindsym Ctrl+Shift+Print exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
+bindsym Print exec maim -u ~/Pictures/"Screenshot from $(date '+%F %H-%M-%S').png"
+bindsym Ctrl+Print exec maim -u | xclip -selection clipboard -t image/png
+bindsym Shift+Print exec maim -us ~/Pictures/"Screenshot from $(date '+%F %H-%M-%S').png"
+bindsym Ctrl+Shift+Print exec maim -us | xclip -selection clipboard -t image/png
+
+## Run ocr (inside ~/bin)
+bindsym $mod+o exec ocr
 
 ## Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
 
 
 # STARTUP
-exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/matrix_wallpaper.jpg
+exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
 exec redshift
 exec alacritty
 exec google-chrome

@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -76,6 +76,7 @@ plugins=(
     tmux # Shortcuts ts and ta
     zsh-autosuggestions
     zsh-syntax-highlighting
+    git-it-on
 )
 
 # trunc8 did this; Because Sem_Coursework was too big and slow to load
@@ -162,11 +163,11 @@ fi
 op() {
   if [[ "$1" == "" ]];
   then
-    xdg-open . > /dev/null 2>&1
+    xdg-open . > /dev/null 2>&1 &
   else
     for file in "$@"
     do
-      xdg-open "$file" > /dev/null 2>&1
+      xdg-open "$file" > /dev/null 2>&1 &
     done
   fi
 }
@@ -183,6 +184,14 @@ con() {
   then
     convert -resize "$1"% "$2" "$3"
   fi
+}
+
+# Convert webm to mp4 with the same file name
+w2m() {
+  for file in "$@"
+  do
+    ffmpeg -i "$file" $(echo $file | sed -E 's/webm$/mp4/')
+  done
 }
 
 # export GAZEBOSIM_PATH=$HOME/villa/Basement/Model_Editor_Models/Gazebosim_Tutorial
