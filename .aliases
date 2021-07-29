@@ -15,8 +15,7 @@ alias ez='vim ~/.zshrc'
 alias sz='source ~/.zshrc'
 alias trash='gio trash'
 alias u2='sudo apt update && sudo apt upgrade'
-alias ei3='vim ~/.config/i3/config'
-
+alias rn='./run'
 
 # Virtual Environment
 alias juplab='cd ~/villa/Basement/Playground/Jupyter_Directory && source jupyter_env/bin/activate && jupyter-lab'
