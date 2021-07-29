@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+pause_status_file="/tmp/dunst-pause-status"
+
+# pause=0 means not paused
+# pause=1 means pause enabled
+pause=$([[ -f "$pause_status_file" ]] && cat $pause_status_file)
+
+# dunst_status=0 means dunst disabled
+# dunst_status=1 means dunst enabled
+dunst_status=$((1-pause))
+
+# Toggle dunst's state icon
+case $dunst_status in
+    0)
+    echo "  "
+    echo
+    echo \#F47174;
+    ;;
+    1)
+    echo "  "
+    echo
+    echo \#aaaaaa;
+    ;;
+esac
+
+exit 0;

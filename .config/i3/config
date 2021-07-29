@@ -243,9 +243,11 @@ bar {
 # DEFAULT WORKSPACES
 assign [class="Gazeb"] $ws1
 assign [class="gazebo"] $ws1
+assign [class="TeXstudio"] $ws1
 # assign [class="IsaacSimProject"] $ws1
 assign [class="Google-chrome"] $ws2
 assign [class="Sublime_text"] $ws3
+assign [class="zoom"] $ws4
 for_window [class="MATLAB R2020a - academic use"] move to workspace $ws5
 assign [class="Evince"] $ws8
 assign [class="polar-bookshelf"] $ws8
@@ -300,16 +302,20 @@ bindsym Ctrl+Shift+Print exec maim -us | xclip -selection clipboard -t image/png
 ## Run ocr (inside ~/bin)
 bindsym $mod+o exec ocr
 
+## Toggling dunst notifications in i3
+bindsym $mod+F5 exec --no-startup-id ~/.config/i3/scripts/toggle_dunst_pause.sh
+
 ## Start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
 
 
 # STARTUP
-exec_always feh --bg-scale /home/trunc8/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
+exec_always feh --bg-scale ~/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
 exec redshift
 exec alacritty
 exec google-chrome
 exec subl
+exec zoom
 exec discord
 exec slack
 # exec spotify
@@ -324,3 +330,12 @@ exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 exec_always xmodmap -e "remove mod1 = Alt_R"
 exec_always xmodmap -e "keycode 108 = Super_L" # Right alt key as super
 exec_always xmodmap -e "keycode 200 = Alt_R" # Screen record key as right alt
+
+
+
+# Automatic back-and-forth when switching to the current workspace
+workspace_auto_back_and_forth yes
+
+# Delaying urgency hint reset on workspace change
+force_display_urgency_hint 500 ms
+
