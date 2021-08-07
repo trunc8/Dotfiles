@@ -34,3 +34,6 @@ alias x='extract'
 # Source: https://news.ycombinator.com/item?id=11071754
 # Explained: https://www.ackama.com/blog/posts/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained
 alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dst='dtf status'
+alias da='dtf add'
+alias dcmsg='dtf commit -m'
