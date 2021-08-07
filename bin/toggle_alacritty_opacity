@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# If alacritty.yml does not exist
+[[ ! -f ~/.config/alacritty/alacritty.yml ]] && notify-send "alacritty.yml does not exist" && exit 0
+
+opacity=$(awk '$1 == "background_opacity:" {print $2; exit}' ~/.config/alacritty/alacritty.yml)
+
+# notify-send $opacity
+case $opacity in
+  1)
+    toggle_opacity=0.8
+    ;;
+  *)
+    toggle_opacity=1
+    ;;
+esac
+
+sed -i -- "s/background_opacity: $opacity/background_opacity: $toggle_opacity/" ~/.config/alacritty/alacritty.yml
