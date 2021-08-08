@@ -1,11 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# If alacritty.yml does not exist
-[[ ! -f ~/.config/alacritty/alacritty.yml ]] && notify-send "alacritty.yml does not exist" && exit 0
+## If alacritty.yml does not exist, raise an alert
+[[ ! -f ~/.config/alacritty/alacritty.yml ]] && \
+    notify-send "alacritty.yml does not exist" && exit 0
 
-opacity=$(awk '$1 == "background_opacity:" {print $2; exit}' ~/.config/alacritty/alacritty.yml)
+## Fetch background_opacity from alacritty.yml
+opacity=$(awk '$1 == "background_opacity:" {print $2; exit}' \
+    ~/.config/alacritty/alacritty.yml)
 
-# notify-send $opacity
+## Assign toggle opacity value
 case $opacity in
   1)
     toggle_opacity=0.8
@@ -15,4 +18,6 @@ case $opacity in
     ;;
 esac
 
-sed -i -- "s/background_opacity: $opacity/background_opacity: $toggle_opacity/" ~/.config/alacritty/alacritty.yml
+## Replace opacity value in alacritty.yml
+sed -i -- "s/background_opacity: $opacity/background_opacity: $toggle_opacity/" \
+    ~/.config/alacritty/alacritty.yml
