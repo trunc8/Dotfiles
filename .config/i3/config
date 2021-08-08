@@ -306,7 +306,7 @@ bindsym $mod+o exec ocr
 bindsym $mod+F9 exec set_brightness
 
 ## Toggling dunst notifications in i3 (inside ~/bin)
-bindsym $mod+F4 exec --no-startup-id toggle_dunst_pause
+bindsym $mod+F1 exec --no-startup-id toggle_dunst_pause
 
 ## Toggling alacritty opacity in i3 (inside ~/bin)
 bindsym $mod+Shift+a exec --no-startup-id toggle_alacritty_opacity
