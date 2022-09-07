@@ -14,6 +14,8 @@
   # TERM: xterm-256color
 
 window:
+  # Background opacity
+  opacity: 0.8
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -123,7 +125,10 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`
-  use_thin_strokes: true
+  # use_thin_strokes: true
+  # To solve below warning (https://githubhelp.com/rajasegar/alacritty-themes)
+  # use_thin_strokes has been removed; Set the AppleFontSmoothing user default instead
+  AppleFontSmooting: true
 
 # Display the time it takes to redraw each frame.
 # render_timer: false
@@ -227,9 +232,6 @@ colors:
 bell:
   animation: EaseOutExpo
   duration: 0
-
-# Background opacity
-background_opacity: 0.8
 
 # Mouse bindings
 #
