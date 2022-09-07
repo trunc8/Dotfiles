@@ -1,14 +1,22 @@
 
 # Software
 alias studio="source /home/trunc8/villa/Workspace/android-studio/bin/studio.sh"
-alias matlab='~/villa/Workspace/MATLAB/R2020a/matlab'
+alias matlab='~/villa/Workspace/MATLAB/R2022a/bin/matlab'
 
 # Convenience command
-alias show_storage='du -h --max-depth=1 | sort -h'
+alias show_storage='du -h --max-depth=1 2>/dev/null | sort -h'
 alias help_no_sound='pulseaudio -k && sudo alsa force-reload'
 alias help_internet_down='systemctl restart network-manager.service'
 
-alias apt='sudo apt'
+# alias alias_test='
+#     echo "Do you wish to install this program?"
+# select yn in "Yes" "No"; do
+#     case $yn in
+#         Yes ) echo $1; break;;
+#         No ) break;;
+#     esac
+# done'
+# alias apt='sudo apt' # Shifted to .zshrc as a function
 alias build='cd build; cmake ../; make; cd ..'
 alias fd='fdfind'
 alias ez='vim ~/.zshrc'
@@ -16,6 +24,12 @@ alias sz='source ~/.zshrc'
 alias trash='gio trash'
 alias u2='sudo apt update && sudo apt upgrade'
 alias rn='./run'
+alias tex='cd ~/texstudio-docker/; ./run'
+
+alias cv_update='cd /home/trunc8/texstudio-docker/Sid-Resume/Academic_CV && \
+  cp academic_cv.pdf ../Siddharth-Saha-CV.pdf && \
+  cp academic_cv.pdf /home/trunc8/villa/Basement/Playground/jekyll-sites/trunc8.github.io/cv/Siddharth-Saha-CV.pdf && \
+  cd -'
 
 # Virtual Environment
 alias juplab='cd ~/villa/Basement/Playground/Jupyter_Directory && source jupyter_env/bin/activate && jupyter-lab'

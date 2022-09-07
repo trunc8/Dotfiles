@@ -93,6 +93,26 @@ function git_prompt_info() {
   fi
 }
 
+# function function_test() {
+#   echo "Do you wish to install this program?"
+# select yn in "Yes" "No"; do
+#     case $yn in
+#         Yes ) echo $@; break;;
+#         No ) break;;
+#     esac
+# done
+# }
+
+function apt() {
+  echo "Are you sure about this?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) sudo apt $@; break;;
+        No ) break;;
+    esac
+done
+}
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -142,6 +162,9 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
+if [ -f ~/.private_aliases ]; then
+    . ~/.private_aliases
+fi
 # Key mapping (Update: done differently now in i3 config file)
 # xmodmap /home/trunc8/villa/Basement/.key_mapping
 
@@ -258,3 +281,6 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/targets/x86_64-linux/
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
+
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/versions/2.7.0/bin:$PATH"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
