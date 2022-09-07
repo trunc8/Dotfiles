@@ -64,6 +64,8 @@ if ($player_arg eq '' or $player_arg =~ /cmus$/) {
     exit 0 unless $player_arg eq '';
 }
 
+#### artist - title (variable width) ####
+
 # my $artist = qx(playerctl $player_arg metadata artist);
 # # exit status will be nonzero when playerctl cannot find your player
 # exit(0) if $?;
@@ -76,7 +78,32 @@ if ($player_arg eq '' or $player_arg =~ /cmus$/) {
 
 # print(join(" - ", @metadata)) if @metadata;
 
-# trunc8- just want the title
+
+
+#### trunc8: title - artist (fixed width - NOT WORKING) ####
+
+# my $artist = qx(playerctl $player_arg metadata artist);
+# # exit status will be nonzero when playerctl cannot find your player
+# exit(0) if $?;
+# $artist=~ s/\s+$//;
+# chomp($artist);
+
+# my $title = qx(playerctl $player_arg metadata title);
+# exit(0) if $?;
+
+# my $desired_length = 21;
+# chomp($title);
+# my $display=$title." - ".$artist;
+# if (length($display) >= $desired_length) {    
+#     printf "%s%s", substr($display, 0, $desired_length-3), "...";
+# } else {
+#     printf "%-*s", $desired_length, $display;    
+# }
+
+
+
+#### trunc8: just want the title ####
+
 my $title = qx(playerctl $player_arg metadata title);
 exit(0) if $?;
 
@@ -87,6 +114,10 @@ if (length($title) > $desired_length) {
 } else {
     printf "%-*s", $desired_length, $title;    
 }
+
+
+
+#### Experimenting ####
 
 # print(substr("$title", 0, 10))
 # printf "%.20s\n\n", "$title               ";

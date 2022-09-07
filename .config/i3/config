@@ -162,7 +162,7 @@ bindsym $mod+Shift+r restart
 # Current method
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -c "$bg-color" && sleep 1, mode "default"
+    bindsym l exec --no-startup-id $(toggle_dunst_pause 1) && i3lock -c "$bg-color" -n && $(toggle_dunst_pause 0), mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
@@ -211,14 +211,16 @@ set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #7D5BB9
+set $indicator-color     #000055
+set $separator-color     #757575
 # Earlier urgent color: orange(#E53935)
 
 ## window colors
 #                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #00ff00
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+client.focused          $bg-color           $bg-color          $text-color          $indicator-color
+client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator-color
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -228,8 +230,8 @@ bar {
         # status_command i3status -c ~/.config/i3/i3status.conf
         position top
         colors {
-                background $bg-color
-                separator #757575
+                background         $bg-color
+                separator          $separator-color
                 #                  border             background         text
                 focused_workspace  $bg-color          $bg-color          $text-color
                 inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
@@ -244,18 +246,24 @@ bar {
 assign [class="Gazeb"] $ws1
 assign [class="gazebo"] $ws1
 assign [class="TeXstudio"] $ws1
+assign [class="Wfica"] $ws1
 # assign [class="IsaacSimProject"] $ws1
 assign [class="Google-chrome"] $ws2
+assign [class="sublime_text"] $ws3
 assign [class="Sublime_text"] $ws3
+# for_window [class="Sublime_text"] move to workspace $ws3
 assign [class="zoom"] $ws4
-for_window [class="MATLAB R2020a - academic use"] move to workspace $ws5
+assign [class="MATLAB R2020a - academic use"] $ws5
+# for_window [class="MATLAB R2020a - academic use"] move to workspace $ws5
 assign [class="Evince"] $ws8
-assign [class="polar-bookshelf"] $ws8
+# assign [class="polar-bookshelf"] $ws8
+assign [class="polar-desktop-app"] $ws8
 assign [class="Microsoft Teams - Preview"] $ws9
 assign [class="Slack"] $ws9
 assign [class="discord"] $ws9
 assign [class="Rhythmbox"] $ws10
 for_window [class="Spotify"] move to workspace $ws10
+
 # for_window [class="Spotify"] move to workspace $ws10, workspace --no-auto-back-and-forth $ws10
 # assign [class="Nvidia-settings"] $ws11
 # assign [class="Mavproxy.py"] $ws7
@@ -267,14 +275,14 @@ for_window [class="Image_raw"] floating enable
 for_window [class="Image_raw"] resize set 640 480
 
 for_window [class="kmag"] floating enable
-for_window [class="matplotlib"] floating enable
+# for_window [class="matplotlib"] floating enable
 
 for_window [class="IsaacSimProject"] floating disable
 
 # CONVENIENCE KEY-BINDINGS
 
-## Live magnifier
-bindsym $mod+plus exec kmag
+## Live magnifier (Commented due to lack of use)
+# bindsym $mod+plus exec kmag
 
 ## Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -290,10 +298,6 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 ## Print screen shortcuts
-# bindsym Print exec gnome-screenshot
-# bindsym Shift+Print exec gnome-screenshot -a
-# # (Hack below: https://askubuntu.com/a/1212806)
-# bindsym Ctrl+Shift+Print exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
 bindsym Print exec maim -u ~/Pictures/"Screenshot from $(date '+%F %H-%M-%S').png"
 bindsym Ctrl+Print exec maim -u | xclip -selection clipboard -t image/png
 bindsym Shift+Print exec maim -us ~/Pictures/"Screenshot from $(date '+%F %H-%M-%S').png"
@@ -317,26 +321,31 @@ bindsym $mod+d exec rofi -show run
 
 # STARTUP
 exec_always feh --bg-scale ~/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
-exec redshift
-exec alacritty
-exec google-chrome
+# exec redshift
+# exec alacritty
+# exec google-chrome
 exec subl
-exec zoom
-exec discord
-exec slack
+# exec zoom
+# exec discord
+# exec slack
 # exec spotify
+# exec LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify
 exec xset mouse 15 0 # accel_multiplier threshold
 
 exec --no-startup-id compton
 # exec_always compton -f -I 0.1 -O 0.1
 
 # Keys
-exec_always xmodmap -e "clear lock" #disable caps lock switch
-exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
+# exec_always xmodmap -e "clear lock" #disable caps lock switch
+# exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
 exec_always xmodmap -e "remove mod1 = Alt_R"
 exec_always xmodmap -e "keycode 108 = Super_L" # Right alt key as super
 exec_always xmodmap -e "keycode 200 = Alt_R" # Screen record key as right alt
 
+
+exec_always xmodmap -e "keycode  66 = Escape NoSymbol Escape"
+exec_always xinput set-prop 13 314 1
+# exec_always xmodmap -e "keycode 108 = Super_L Meta_R Super_L Meta_R"
 
 
 # Automatic back-and-forth when switching to the current workspace
@@ -345,7 +354,5 @@ workspace_auto_back_and_forth yes
 # Delaying urgency hint reset on workspace change
 force_display_urgency_hint 500 ms
 
-
-
-### Testing arena
-bindsym $mod+u exec dtest
+# Hide container borders adjacent to the screen edges
+hide_edge_borders both

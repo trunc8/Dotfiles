@@ -1,62 +1,116 @@
-#!/usr/bin/env perl 
+#!/bin/sh
+# Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
 
-## The sink we are interested in should be given as the 
-## 1st argument to the script. (No die because 0 is allowed)
-my $sink=$ARGV[0];
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 
-## If the script has been run with a second argument,
-## that argument will be the volume threshold we are checking
-my $volume_limit=$ARGV[1]||undef;
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 
-## Run the pactl command and save the output in 
-## ther filehandle $fh
-open(my $fh, '-|', 'pactl list sinks');
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-## Set the record separator to consecutive newlines (same as -000)
-## this means we read the info for each sink as a single "line".
-$/="\n\n";
+### Source: https://github.com/vivien/i3blocks/commit/48461235fdb918640ca1364b0e5e0be8701a4790
 
-## Go through the pactl output
 
-while (<$fh>) {
-    ## If this is the sink we are interested in
-    if (/#$sink/) {
-        # trunc8's modifications --------
-        ## Extract mute status of this sink
-        /Mute: (.*)/;
-        my $mute_status=$1;
-        # print "$mute_status\n";
-        if ($mute_status eq "yes") {
-            print " ";
-        }
-        else {
-            print " ";
-        }
-        # -------
+CARD="${1:-0}"
+MIXER="${2:-default}" # use pulse for pulseaudio, default is alsa
+SCONTROL="${3:-Master}"
 
-        ## Extract the current colume of this sink
+case $BLOCK_BUTTON in
+  3) pactl set-sink-mute @DEFAULT_SINK@ toggle ;; # right click, mute/unmute
+  4) amixer -q sset $SCONTROL 5%+ ;;    # scroll up, increase
+  5) amixer -q sset $SCONTROL 5%- ;;    # scroll down, decrease
+esac
 
-        /Volume:.*?(\d+)%/;
-        my $volume=$1;
-        ## If the script has been run with a second argument,
-        ## check whether the volume is above or below that
-        if ($volume_limit) {
-            ## If the volume os greater than or equal to the
-            ## value passed, print "y"
-            if ($volume >= $volume_limit) {
-               print "y\n";
-                exit 0;
-            }
-            else {
-                print "n\n";
-                exit 1;
-            }
-        }   
-        ## Else, if the script has been run with just one argument,
-        ## print the current volume + exit
-        else {
-            print "$volume%\n";
-            exit 0;
-        }
-    }
+volume () {
+  amixer -c $CARD -M -D $MIXER get $SCONTROL
 }
+
+format () {
+  perl -ne 'if (/\[(\d+%)\].*\[(on|off)\]/) {CORE::say $2 eq "off" ? "$1" : " $1"; exit}'
+}
+
+volume | format
+
+
+
+# #!/usr/bin/env perl 
+
+
+# #### Added mouse events ####
+# use Env qw(BLOCK_INSTANCE);
+
+# if ($ENV{'BLOCK_BUTTON'} == 1) {
+#     system("pactl set-sink-volume @DEFAULT_SINK@ +5%");
+# } elsif ($ENV{'BLOCK_BUTTON'} == 2) {
+#     system("pactl set-sink-mute @DEFAULT_SINK@ toggle");
+# } elsif ($ENV{'BLOCK_BUTTON'} == 3) {
+#     system("pactl set-sink-volume @DEFAULT_SINK@ -5%");
+# }
+
+
+# ## The sink we are interested in should be given as the 
+# ## 1st argument to the script. (No die because 0 is allowed)
+# my $sink=$ARGV[0];
+
+# ## If the script has been run with a second argument,
+# ## that argument will be the volume threshold we are checking
+# my $volume_limit=$ARGV[1]||undef;
+
+# ## Run the pactl command and save the output in 
+# ## ther filehandle $fh
+# open(my $fh, '-|', 'pactl list sinks');
+
+# ## Set the record separator to consecutive newlines (same as -000)
+# ## this means we read the info for each sink as a single "line".
+# $/="\n\n";
+
+# ## Go through the pactl output
+
+# while (<$fh>) {
+#     ## If this is the sink we are interested in
+#     if (/#$sink/) {
+#         # trunc8's modifications --------
+#         ## Extract mute status of this sink
+#         /Mute: (.*)/;
+#         my $mute_status=$1;
+#         # print "$mute_status\n";
+#         if ($mute_status eq "yes") {
+#             print " ";
+#         }
+#         else {
+#             print " ";
+#         }
+#         # -------
+
+#         ## Extract the current colume of this sink
+
+#         /Volume:.*?(\d+)%/;
+#         my $volume=$1;
+#         ## If the script has been run with a second argument,
+#         ## check whether the volume is above or below that
+#         if ($volume_limit) {
+#             ## If the volume os greater than or equal to the
+#             ## value passed, print "y"
+#             if ($volume >= $volume_limit) {
+#                print "y\n";
+#                 exit 0;
+#             }
+#             else {
+#                 print "n\n";
+#                 exit 1;
+#             }
+#         }   
+#         ## Else, if the script has been run with just one argument,
+#         ## print the current volume + exit
+#         else {
+#             print "$volume%\n";
+#             exit 0;
+#         }
+#     }
+# }

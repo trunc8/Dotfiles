@@ -23,21 +23,36 @@ my $full_text;
 my $short_text;
 my $bat_number = $ENV{BLOCK_INSTANCE} || 0;
 
-# read the first line of the "acpi" command output
-open (ACPI, "acpi -b | grep 'Battery $bat_number' |") or die;
-$acpi = <ACPI>;
-close(ACPI);
+# # read the first line of the "acpi" command output
+# open (ACPI, "acpi -b | grep 'Battery $bat_number' |") or die;
+# $acpi = <ACPI>;
+# close(ACPI);
 
-# fail on unexpected output
-if ($acpi !~ /: (\w+), (\d+)%/) {
-  die "$acpi\n";
-}
+# # fail on unexpected output
+# if ($acpi !~ /: (\w+), (\d+)%/) {
+#   die "$acpi\n";
+# }
 
-$status = $1;
-$percent = $2;
+# $status = $1;
+# $percent = $2;
+# $full_text = "";
+
+open (STATUS, "cat /sys/class/power_supply/BAT0/status |") or die;
+$status = <STATUS>;
+
+# trim $status;
+# print $status;
+close(STATUS);
+# print $status;
+
+open (CAPACITY, "cat /sys/class/power_supply/BAT0/capacity |") or die;
+$percent = <CAPACITY>+"%";
+close(CAPACITY);
+
 $full_text = "";
 
-if ($status eq 'Discharging') {
+
+if (substr($status,0,4) eq 'Disc') {
   if ($percent < 10) {
       $full_text .= ' ';
   } elsif ($percent < 25) {
