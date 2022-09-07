@@ -2,5 +2,5 @@
 
 pidof redshift && \
   killall redshift && \
-  sleep 3 && \
-  redshift &
+  sleep 4;
+redshift &

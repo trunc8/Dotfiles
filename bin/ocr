@@ -2,5 +2,6 @@
 # langs=(eng ara chi_sim chi_tra deu ell fin heb hun jpn kor nld rus tur)
 # lang=$(printf '%s\n' "${langs[@]}" | dmenu "$@")
 lang=eng
-maim -us | tesseract --dpi 145 -l eng+${lang} - - | xsel -bi && \
+
+maim -us | tesseract --dpi 145 -l eng+${lang} - - | tr -d '\f' | perl -pe 'chomp if eof' | xsel -bi && \
 notify-send "ocr" "$(xsel -bo)"

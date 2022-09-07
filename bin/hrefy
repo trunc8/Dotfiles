@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+printf -- '-%.0s' {1..50}; echo ""
+
+### Input
+# base_url="https://theroboticsclub.github.io/gsoc2021-Siddharth_Saha/milestones/2021/06/23/week-4"
+# section="Progress on the Issue"
+
+### Output
+# url="https://theroboticsclub.github.io/gsoc2021-Siddharth_Saha/milestones/2021/06/23/week-4#progress-on-the-issue"
+
+
+# check if number of input arguments is 0
+if [ $# -eq 0 ]
+then
+  read -r -p "Enter base url: " base_url
+  read -r -p "Enter section header: " section
+
+# check if an argument is an empty string or not
+elif [ -z "$2" ]
+then
+  base_url=""
+  section=$1
+else
+  base_url=$1
+  section=$2
+fi
+
+# hyperrefy the section header
+section=$(echo "${section}" | tr '[:upper:]' '[:lower:]' |  tr " " "-")
+
+# Concatenate
+url="${base_url}#${section}"
+
+# Input to clipboard
+printf '%s' "${url}" | xsel -bi
+
+# Output from clipboard
+echo "$(xsel -bo)"
+
+printf -- '-%.0s' {1..50}; echo ""

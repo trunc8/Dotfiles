@@ -1,13 +1,42 @@
 #!/usr/bin/env bash
 
 pause_status_file="/tmp/dunst-pause-status"
+status_before_lock_file="/tmp/dunst-pause-status-before-pause"
 
 # pause=0 means not paused
 # pause=1 means pause enabled
-pause=$([[ -f "$pause_status_file" ]] && cat $pause_status_file)
+pause=$([[ -f "${pause_status_file}" ]] && \
+  cat ${pause_status_file})
+pause_before_lock=$([[ -f "${status_before_lock_file}" ]] && \
+  cat ${status_before_lock_file})
+
+
+## Defining early exits
+
+# Argument=1 indicates Locking
+# Desired behavior is to pause notif
+if [[ "$1" = "1" ]]
+# "$1": inverted commas are important when no argument is passed
+# That placeholder gets replaced by null otherwise
+# -eq: Checks for numeric equality. Can't be used above
+then
+  echo "${pause}" > "${status_before_lock_file}"
+  if [[ "${pause}" -eq 1 ]]
+  then
+    # Already paused. Do nothing
+    exit 0
+  fi
+# Argument=0 indicates Unlocking
+# Desired behavior is to restore to pre-lock status
+elif [[ "$1" = "0" && "${pause}" -eq "${pause_before_lock}" ]]
+then
+  # Already in desired state. Do nothing
+  exit 0
+fi
+
 
 toggle_pause=$((1-pause))
 
-echo $toggle_pause > $pause_status_file
+echo "${toggle_pause}" > "${pause_status_file}"
 
 notify-send "DUNST_COMMAND_TOGGLE"

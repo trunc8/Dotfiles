@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Description: Shortcut to compile and execute cpp file(s)
+g++ $* && ./a.out
