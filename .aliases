@@ -53,3 +53,7 @@ alias da='dtf add'
 alias dcmsg='dtf commit -m'
 alias dp='dtf push'
 alias dlg='dtf log --stat'
+
+
+alias csony='bluetoothctl connect F8:4E:17:14:22:0E'
+alias dsony='bluetoothctl disconnect F8:4E:17:14:22:0E'
