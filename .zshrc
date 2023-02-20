@@ -242,7 +242,7 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # Probably "less" (the pager tool) has upgraded. LESS="-R" doesn't cut it anymore
 # https://superuser.com/a/1514628
-export LESS='--mouse --wheel-lines=3'
+export LESS='-R --mouse --wheel-lines=3'
 
 # In order to not input password everytime for ssh git repos
 # https://yashagarwal.in/posts/2017/12/setting-up-ssh-agent-in-i3/#:~:text=In%20this%20post%2C%20I%20will,process%20of%20creating%20the%20keys.
@@ -284,3 +284,4 @@ export PATH="$HOME/gems/bin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/versions/2.7.0/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+export PATH="$HOME/villa/Lobby/installers/julia-1.6.7/bin:$PATH"

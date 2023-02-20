@@ -2,6 +2,7 @@
 # Software
 alias studio="source /home/trunc8/villa/Workspace/android-studio/bin/studio.sh"
 alias matlab='~/villa/Workspace/MATLAB/R2022a/bin/matlab'
+# alias julia='~/villa/Lobby/installers/julia-1.6.7/bin/julia'
 
 # Convenience command
 alias show_storage='du -h --max-depth=1 2>/dev/null | sort -h'
