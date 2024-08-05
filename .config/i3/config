@@ -248,12 +248,16 @@ assign [class="gazebo"] $ws1
 assign [class="TeXstudio"] $ws1
 assign [class="Wfica"] $ws1
 # assign [class="IsaacSimProject"] $ws1
+assign [class="rviz"] $ws1
 assign [class="Google-chrome"] $ws2
 assign [class="sublime_text"] $ws3
 assign [class="Sublime_text"] $ws3
+assign [class="Code"] $ws3
 # for_window [class="Sublime_text"] move to workspace $ws3
 assign [class="zoom"] $ws4
 assign [class="MATLAB R2020a - academic use"] $ws5
+assign [class="Com.cisco.anyconnect.gui"] $ws6
+for_window [class="Com.cisco.anyconnect.gui"] move to workspace $ws6
 # for_window [class="MATLAB R2020a - academic use"] move to workspace $ws5
 assign [class="Evince"] $ws8
 # assign [class="polar-bookshelf"] $ws8
@@ -271,10 +275,13 @@ for_window [class="Spotify"] move to workspace $ws10
 
 # FLOATING WINDOWS
 
+for_window [class="Longjump Planner"] floating enable, move position center
+for_window [class="Sampling Planner"] floating enable, move position center
 for_window [class="Image_raw"] floating enable
 for_window [class="Image_raw"] resize set 640 480
 
 for_window [class="kmag"] floating enable
+for_window [class="Com.cisco.anyconnect.gui"] floating enable
 # for_window [class="matplotlib"] floating enable
 
 for_window [class="IsaacSimProject"] floating disable
@@ -316,12 +323,17 @@ bindsym $mod+F1 exec --no-startup-id toggle_dunst_pause
 bindsym $mod+Shift+a exec --no-startup-id toggle_alacritty_opacity
 
 ## Start rofi (a program launcher)
-bindsym $mod+d exec rofi -show run
+# bindsym $mod+d exec rofi -show run
+
+# Credits: https://github.com/adi1090x/rofi
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher.sh
+# bindsym $mod+x exec --no-startup-id ~/.config/rofi/powermenu/type-2/powermenu.sh
 
 
 # STARTUP
-exec_always feh --bg-scale ~/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
-# exec redshift
+exec_always feh --bg-scale ~/villa/Attic/wallpapers/ghost_rider_wallpaper.jpg
+# exec_always feh --bg-scale ~/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
+exec redshift
 # exec alacritty
 # exec google-chrome
 exec subl
@@ -343,8 +355,9 @@ exec_always xmodmap -e "keycode 108 = Super_L" # Right alt key as super
 exec_always xmodmap -e "keycode 200 = Alt_R" # Screen record key as right alt
 
 
-exec_always xmodmap -e "keycode  66 = Escape NoSymbol Escape"
-exec_always xinput set-prop 13 314 1
+exec_always xmodmap -e "keycode  66 = Escape NoSymbol Escape" #set caps_lock as escape
+exec_always xmodmap -e "clear lock" #disable caps lock switch
+exec_always activate_touchpad
 # exec_always xmodmap -e "keycode 108 = Super_L Meta_R Super_L Meta_R"
 
 
@@ -356,3 +369,9 @@ force_display_urgency_hint 500 ms
 
 # Hide container borders adjacent to the screen edges
 hide_edge_borders both
+
+
+# move current workspace between monitors
+# Reference: https://faq.i3wm.org/question/591/move-workspace-to-other-monitor.1.html
+bindsym $mod+Shift+greater move workspace to output right
+bindsym $mod+Shift+less move workspace to output left

@@ -1,6 +1,5 @@
 
 # Software
-alias studio="source /home/trunc8/villa/Workspace/android-studio/bin/studio.sh"
 alias matlab='~/villa/Workspace/MATLAB/R2022a/bin/matlab'
 # alias julia='~/villa/Lobby/installers/julia-1.6.7/bin/julia'
 
@@ -8,14 +7,15 @@ alias matlab='~/villa/Workspace/MATLAB/R2022a/bin/matlab'
 alias show_storage='du -h --max-depth=1 2>/dev/null | sort -h'
 alias help_no_sound='pulseaudio -k && sudo alsa force-reload'
 alias help_internet_down='systemctl restart network-manager.service'
+alias help_nvidia_down='sudo modprobe -r nvidia_uvm && sudo modprobe nvidia_uvm'
 
 # alias alias_test='
-#     echo "Do you wish to install this program?"
+    # echo "Do you wish to install this program?"
 # select yn in "Yes" "No"; do
-#     case $yn in
-#         Yes ) echo $1; break;;
-#         No ) break;;
-#     esac
+    # case $yn in
+        # Yes ) echo $1; break;;
+        # No ) break;;
+    # esac
 # done'
 # alias apt='sudo apt' # Shifted to .zshrc as a function
 alias build='cd build; cmake ../; make; cd ..'
@@ -27,15 +27,10 @@ alias u2='sudo apt update && sudo apt upgrade'
 alias rn='./run'
 alias tex='cd ~/texstudio-docker/; ./run'
 
-alias cv_update='cd /home/trunc8/texstudio-docker/Sid-Resume/Academic_CV && \
-  cp academic_cv.pdf ../Siddharth-Saha-CV.pdf && \
-  cp academic_cv.pdf /home/trunc8/villa/Basement/Playground/jekyll-sites/trunc8.github.io/cv/Siddharth-Saha-CV.pdf && \
-  cd -'
-
 # Virtual Environment
 alias juplab='cd ~/villa/Basement/Playground/Jupyter_Directory && source jupyter_env/bin/activate && jupyter-lab'
 alias jup_env='source ~/villa/Basement/Playground/Jupyter_Directory/jupyter_env/bin/activate'
-alias cv_env='source ~/villa/Studyroom/cs764-assignments/01/venv/bin/activate'
+alias irl_env='source ~/villa/Studyroom/assignments/Sem_3_Assignments/irl_env/bin/activate'
 
 # FASD
 alias v='f -e vim' # quick opening files with vim
@@ -58,3 +53,11 @@ alias dlg='dtf log --stat'
 
 alias csony='bluetoothctl connect F8:4E:17:14:22:0E'
 alias dsony='bluetoothctl disconnect F8:4E:17:14:22:0E'
+alias cpods='bluetoothctl connect EC:73:79:02:54:EC'
+alias dpods='bluetoothctl disconnect EC:73:79:02:54:EC'
+
+
+# Screen extending shortcuts
+alias one_monitor='xrandr --auto && xrandr --output HDMI-0 --mode 1920x1080 --same-as DP-4'
+alias left_monitor='xrandr --auto && xrandr --output HDMI-0 --left-of DP-4'
+alias right_monitor='xrandr --auto && xrandr --output HDMI-0 --right-of DP-4'

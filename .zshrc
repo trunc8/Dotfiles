@@ -76,7 +76,6 @@ plugins=(
     tmux # Shortcuts ts and ta
     zsh-autosuggestions
     zsh-syntax-highlighting
-    git-it-on
 )
 
 # trunc8 did this; Because Sem_Coursework was too big and slow to load
@@ -102,16 +101,6 @@ function git_prompt_info() {
 #     esac
 # done
 # }
-
-function apt() {
-  echo "Are you sure about this?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) sudo apt $@; break;;
-        No ) break;;
-    esac
-done
-}
 
 source $ZSH/oh-my-zsh.sh
 
@@ -222,8 +211,8 @@ w2m() {
 # export GAZEBO_PLUGIN_PATH=${GAZEBO_PLUGIN_PATH}:${GAZEBOSIM_PATH}/Velodyne_LiDAR/Velodyne_Plugin/build:${GAZEBOSIM_PATH}/Gazebo_Plugin_Tutorial/build:${GAZEBOSIM_PATH}/Sensor_Tutorial/build:
 # export LD_LIBRARY_PATH=/usr/local/lib:/home/trunc8/villa/Basement/Playground/f1tenth/lpopt_install/ThirdParty-HSL/coinhsl/lib:$LD_LIBRARY_PATH
 # export WEBOTS_HOME=/usr/local/webots
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/colcon_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models
-export TURTLEBOT3_MODEL=waffle_pi
+# export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/colcon_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models
+# export TURTLEBOT3_MODEL=waffle_pi
 
 eval "$(fasd --init auto)"
 eval $(thefuck --alias)
@@ -231,44 +220,17 @@ eval $(thefuck --alias)
 # Vim extension to the shell
 set -o vi
 
+################### FZF ##################################
 # **Must appear after the vim** row in zshrc for fzf keybindings to work
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Call script to preview files
+export FZF_CTRL_T_OPTS=" --preview '~/bin/fzf-preview.sh {}'"
+##########################################################
 
-# source /home/trunc8/.config/broot/launcher/bash/br
-
-# Adding go to PATH
-export GOPATH=$HOME/villa/Workspace/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # Probably "less" (the pager tool) has upgraded. LESS="-R" doesn't cut it anymore
 # https://superuser.com/a/1514628
 export LESS='-R --mouse --wheel-lines=3'
-
-# In order to not input password everytime for ssh git repos
-# https://yashagarwal.in/posts/2017/12/setting-up-ssh-agent-in-i3/#:~:text=In%20this%20post%2C%20I%20will,process%20of%20creating%20the%20keys.
-if [ -f ~/.ssh/agent.env ] ; then
-    . ~/.ssh/agent.env > /dev/null
-    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
-        echo "Stale agent file found. Spawning a new agent. "
-        eval `ssh-agent | tee ~/.ssh/agent.env`
-        ssh-add
-    fi
-else
-    echo "Starting ssh-agent"
-    eval `ssh-agent | tee ~/.ssh/agent.env`
-    ssh-add
-fi
-
-
-# Installing Gurobi
-export GUROBI_HOME="/home/trunc8/villa/Basement/mespp-proj/gurobi911/linux64"
-export PATH="${PATH}:${GUROBI_HOME}/bin"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
-export GRB_LICENSE_FILE="${HOME}/gurobi.lic"
-
-# Temporary: Getting milp_mespp to work
-MESPP_PATH="/home/trunc8/villa/Basement/mespp-proj:/home/trunc8/villa/Basement/mespp-proj/milp_mespp"
-export PYTHONPATH="${PYTHONPATH}:${MESPP_PATH}"
 
 # For gupload(https://github.com/labbots/google-drive-upload)
 PATH="/home/trunc8/.google-drive-upload/bin:${PATH}"
@@ -284,4 +246,9 @@ export PATH="$HOME/gems/bin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/versions/2.7.0/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+
+# For Julia
 export PATH="$HOME/villa/Lobby/installers/julia-1.6.7/bin:$PATH"
+
+
+# To remove the "Are you sure about this?" prompt from apt and apt-get, check which apt and go to that location and delete/rename the executable script

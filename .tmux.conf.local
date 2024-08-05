@@ -331,3 +331,7 @@ bind -n M-S-Right next-window
 # For color status bar (doesn't work here apparently, need to put in the .tmux.conf@ file)
 # run-shell "powerline-daemon -q"
 # source "/usr/share/powerline/bindings/tmux/powerline.conf"
+
+# Source: https://superuser.com/a/552493
+bind -n C-S-Left swap-window -d -t -1
+bind -n C-S-Right swap-window -d -t +1
